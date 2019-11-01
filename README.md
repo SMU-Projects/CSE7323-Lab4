@@ -13,7 +13,7 @@ Create an iOS application using the OpenCV template that:
 - Uses video of the user's finger (with flash on) to sense a single dimension stream indicating the "redness" of the finger
 - Uses the redness to measure the heart rate of the individual (coarse estimate)
 - An idea for exceptional work (<strong>required for 7000 level students</strong>): Display an estimate of the PPG signal
-- An idea for exceptional work (<strong>can replace other 7000 level requirements</strong>): Use face detection to look at changes in color of a user's face to get heart rate (i.e., <a href="https://affect.media.mit.edu/pdfs/11.Poh-etal-SIGGRAPH.pdf">Poh's method</a>>)
+- An idea for exceptional work (<strong>can replace other 7000 level requirements</strong>): Use face detection to look at changes in color of a user's face to get heart rate (i.e., <a href="https://affect.media.mit.edu/pdfs/11.Poh-etal-SIGGRAPH.pdf" target="_blank">Poh's method</a>>)
 
 ### Turn in: 
 
