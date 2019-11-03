@@ -12,6 +12,11 @@
 		B66BAE58236F448C00C70B61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66BAE56236F448C00C70B61 /* Main.storyboard */; };
 		B66BAE5A236F448D00C70B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B66BAE59236F448D00C70B61 /* Assets.xcassets */; };
 		B66BAE5D236F448D00C70B61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B66BAE5B236F448D00C70B61 /* LaunchScreen.storyboard */; };
+		B66BAE65236F487E00C70B61 /* ModuleA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66BAE64236F487E00C70B61 /* ModuleA.swift */; };
+		B66BAE67236F488E00C70B61 /* ModuleB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66BAE66236F488E00C70B61 /* ModuleB.swift */; };
+		B66BAE97236F4A0800C70B61 /* OpenCVBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = B66BAE91236F4A0800C70B61 /* OpenCVBridge.mm */; };
+		B66BAE99236F4A0800C70B61 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66BAE93236F4A0800C70B61 /* opencv2.framework */; };
+		B66BAE9A236F4A0800C70B61 /* VideoAnalgesic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66BAE96236F4A0800C70B61 /* VideoAnalgesic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,14 @@
 		B66BAE59236F448D00C70B61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B66BAE5C236F448D00C70B61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B66BAE5E236F448D00C70B61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B66BAE64236F487E00C70B61 /* ModuleA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleA.swift; sourceTree = "<group>"; };
+		B66BAE66236F488E00C70B61 /* ModuleB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleB.swift; sourceTree = "<group>"; };
+		B66BAE90236F4A0800C70B61 /* OpenCVBridge.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpenCVBridge.hh; sourceTree = "<group>"; };
+		B66BAE91236F4A0800C70B61 /* OpenCVBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVBridge.mm; sourceTree = "<group>"; };
+		B66BAE93236F4A0800C70B61 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		B66BAE96236F4A0800C70B61 /* VideoAnalgesic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAnalgesic.swift; sourceTree = "<group>"; };
+		B66BAE9B236F4D5D00C70B61 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B66BAE9C236F4FA700C70B61 /* OpenCVBridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVBridgeHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66BAE99236F4A0800C70B61 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +52,7 @@
 		B66BAE44236F448C00C70B61 = {
 			isa = PBXGroup;
 			children = (
+				B66BAE8F236F4A0800C70B61 /* ImageDSPUtils */,
 				B66BAE4F236F448C00C70B61 /* Lab4 */,
 				B66BAE4E236F448C00C70B61 /* Products */,
 			);
@@ -54,14 +69,29 @@
 		B66BAE4F236F448C00C70B61 /* Lab4 */ = {
 			isa = PBXGroup;
 			children = (
+				B66BAE5B236F448D00C70B61 /* LaunchScreen.storyboard */,
+				B66BAE56236F448C00C70B61 /* Main.storyboard */,
 				B66BAE50236F448C00C70B61 /* AppDelegate.swift */,
 				B66BAE54236F448C00C70B61 /* ViewController.swift */,
-				B66BAE56236F448C00C70B61 /* Main.storyboard */,
-				B66BAE59236F448D00C70B61 /* Assets.xcassets */,
-				B66BAE5B236F448D00C70B61 /* LaunchScreen.storyboard */,
+				B66BAE64236F487E00C70B61 /* ModuleA.swift */,
+				B66BAE66236F488E00C70B61 /* ModuleB.swift */,
 				B66BAE5E236F448D00C70B61 /* Info.plist */,
+				B66BAE59236F448D00C70B61 /* Assets.xcassets */,
 			);
 			path = Lab4;
+			sourceTree = "<group>";
+		};
+		B66BAE8F236F4A0800C70B61 /* ImageDSPUtils */ = {
+			isa = PBXGroup;
+			children = (
+				B66BAE93236F4A0800C70B61 /* opencv2.framework */,
+				B66BAE96236F4A0800C70B61 /* VideoAnalgesic.swift */,
+				B66BAE9C236F4FA700C70B61 /* OpenCVBridgeHeader.h */,
+				B66BAE90236F4A0800C70B61 /* OpenCVBridge.hh */,
+				B66BAE91236F4A0800C70B61 /* OpenCVBridge.mm */,
+				B66BAE9B236F4D5D00C70B61 /* PrefixHeader.pch */,
+			);
+			path = ImageDSPUtils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66BAE67236F488E00C70B61 /* ModuleB.swift in Sources */,
 				B66BAE55236F448C00C70B61 /* ViewController.swift in Sources */,
+				B66BAE65236F487E00C70B61 /* ModuleA.swift in Sources */,
+				B66BAE9A236F4A0800C70B61 /* VideoAnalgesic.swift in Sources */,
 				B66BAE51236F448C00C70B61 /* AppDelegate.swift in Sources */,
+				B66BAE97236F4A0800C70B61 /* OpenCVBridge.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +316,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F69WJ27LN4;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImageDSPUtils",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Lab4/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -290,6 +330,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Swee.Lab4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ImageDSPUtils/OpenCVBridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -301,6 +342,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F69WJ27LN4;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImageDSPUtils",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Lab4/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -309,6 +356,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Swee.Lab4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ImageDSPUtils/OpenCVBridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
