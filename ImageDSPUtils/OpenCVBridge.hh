@@ -38,4 +38,6 @@
 
 -(void)moduleAFunction:(CIFaceFeature*)face;
 
+-(int)moduleBFunction;
+
 @end

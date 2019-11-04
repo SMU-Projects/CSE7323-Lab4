@@ -11,6 +11,9 @@ import AVFoundation
 
 class ModuleA: UIViewController   {
     
+    //MARK: UI Properties
+    @IBOutlet weak var button: UIButton!
+    
     //MARK: Class Properties
     var filters : [CIFilter]! = nil
     var videoManager:VideoAnalgesic! = nil
@@ -24,7 +27,6 @@ class ModuleA: UIViewController   {
         super.viewDidLoad()
         
         self.view.backgroundColor = nil
-        self.setupFilters()
         
         self.videoManager = VideoAnalgesic.sharedInstance
         self.videoManager.setCameraPosition(position: AVCaptureDevice.Position.front)
@@ -71,38 +73,6 @@ class ModuleA: UIViewController   {
         return retImage
     }
     
-    //MARK: Setup filtering
-    func setupFilters(){
-        filters = []
-        
-        let filterPinch = CIFilter(name:"CIBumpDistortion")!
-        filterPinch.setValue(-0.5, forKey: "inputScale")
-        filterPinch.setValue(75, forKey: "inputRadius")
-        filters.append(filterPinch)
-        
-    }
-    
-    //MARK: Apply filters and apply feature detectors
-    func applyFiltersToFaces(inputImage:CIImage,features:[CIFaceFeature])->CIImage{
-        var retImage = inputImage
-        var filterCenter = CGPoint()
-        
-        for f in features {
-            //set where to apply filter
-            filterCenter.x = f.bounds.midX
-            filterCenter.y = f.bounds.midY
-            
-            //do for each filter (assumes all filters have property, "inputCenter")
-            for filt in filters{
-                filt.setValue(retImage, forKey: kCIInputImageKey)
-                filt.setValue(CIVector(cgPoint: filterCenter), forKey: "inputCenter")
-                // could also manipualte the radius of the filter based on face size!
-                retImage = filt.outputImage!
-            }
-        }
-        return retImage
-    }
-    
     func getFaces(img:CIImage) -> [CIFaceFeature]{
         // this ungodly mess makes sure the image is the correct orientation
 //        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation]
@@ -112,6 +82,10 @@ class ModuleA: UIViewController   {
         // get Face Features
         return self.detector.features(in: img, options: optsFace) as! [CIFaceFeature]
         
+    }
+    
+    @IBAction func buttonAction(_ sender: Any) {
+        self.videoManager.toggleCameraPosition()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

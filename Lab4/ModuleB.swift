@@ -11,10 +11,12 @@ import AVFoundation
 
 class ModuleB: UIViewController   {
     
+    //MARK: UI Properties
+    @IBOutlet weak var label: UILabel!
+    
     //MARK: Class Properties
     var filters : [CIFilter]! = nil
     var videoManager:VideoAnalgesic! = nil
-    var detector:CIDetector! = nil
     
     let pinchFilterIndex = 2
     let bridge = OpenCVBridge()
@@ -24,18 +26,10 @@ class ModuleB: UIViewController   {
         super.viewDidLoad()
         
         self.view.backgroundColor = nil
-        self.setupFilters()
         
         self.videoManager = VideoAnalgesic.sharedInstance
-        self.videoManager.setCameraPosition(position: AVCaptureDevice.Position.front)
-        
-        let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyHigh, CIDetectorTracking:true] as [String : Any]
-        
-        // setup a face detector in swift
-        self.detector = CIDetector(ofType: CIDetectorTypeFace,
-                                  context: self.videoManager.getCIContext(), // perform on the GPU if possible
-                                  options: optsDetector)
-        
+        self.videoManager.setCameraPosition(position: AVCaptureDevice.Position.back)
+
         
         self.bridge.setTransforms(self.videoManager.transform)
         self.videoManager.setProcessingBlock(newProcessBlock: self.processImage)
@@ -53,67 +47,32 @@ class ModuleB: UIViewController   {
     //MARK: Process image output
     func processImage(inputImage:CIImage) -> CIImage{
         
-        // detect faces
-        let faces = getFaces(img: inputImage)
-        
-        // if no faces, just return original image
-        if faces.count == 0 { return inputImage }
-        
+        self.videoManager.turnOnFlashwithLevel(1.0)
         var retImage = inputImage
         
-        for face in faces {
-            //HINT: you can also send in the bounds of the face to ONLY process the face in OpenCV
-            // or any bounds to only process a certain bounding region in OpenCV
-            self.bridge.setImage(retImage,  withBounds: retImage.extent, andContext: self.videoManager.getCIContext())
-            self.bridge.moduleAFunction(face)
-            retImage = self.bridge.getImage()
-        }
-        return retImage
-    }
-    
-    //MARK: Setup filtering
-    func setupFilters(){
-        filters = []
+        self.bridge.setImage(retImage,  withBounds: retImage.extent, andContext: self.videoManager.getCIContext())
         
-        let filterPinch = CIFilter(name:"CIBumpDistortion")!
-        filterPinch.setValue(-0.5, forKey: "inputScale")
-        filterPinch.setValue(75, forKey: "inputRadius")
-        filters.append(filterPinch)
+        let value = self.bridge.moduleBFunction()
         
-    }
-    
-    //MARK: Apply filters and apply feature detectors
-    func applyFiltersToFaces(inputImage:CIImage,features:[CIFaceFeature])->CIImage{
-        var retImage = inputImage
-        var filterCenter = CGPoint()
-        
-        for f in features {
-            //set where to apply filter
-            filterCenter.x = f.bounds.midX
-            filterCenter.y = f.bounds.midY
-            
-            //do for each filter (assumes all filters have property, "inputCenter")
-            for filt in filters{
-                filt.setValue(retImage, forKey: kCIInputImageKey)
-                filt.setValue(CIVector(cgPoint: filterCenter), forKey: "inputCenter")
-                // could also manipualte the radius of the filter based on face size!
-                retImage = filt.outputImage!
+        if value == -1 {
+            DispatchQueue.main.async {
+                self.label.font = self.label.font.withSize(16)
+                self.label.text = "Please Place Your Finger Over The Flashlight\n For 5 Seconds"
             }
         }
+        else
+        {
+            DispatchQueue.main.async {
+                self.label.font = self.label.font.withSize(50)
+                self.label.text = "\(value) BPS"
+            }
+        }
+        
+        retImage = self.bridge.getImage()
+        
         return retImage
     }
-    
-    func getFaces(img:CIImage) -> [CIFaceFeature]{
-        // this ungodly mess makes sure the image is the correct orientation
-//        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation]
-        
-        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true, CIDetectorEyeBlink:true] as [String : Any]
-        
-        // get Face Features
-        return self.detector.features(in: img, options: optsFace) as! [CIFaceFeature]
-        
-    }
-    
+   
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if self.videoManager.isRunning{

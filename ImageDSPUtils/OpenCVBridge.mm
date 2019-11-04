@@ -18,14 +18,24 @@ using namespace cv;
 @property (nonatomic) CGAffineTransform transform;
 @property (nonatomic) CGAffineTransform inverseTransform;
 @property (atomic) cv::CascadeClassifier classifier;
+
+@property (strong, nonatomic) NSMutableArray *buffer;
+@property (nonatomic) int BPM;
+
 @end
 
 @implementation OpenCVBridge
 
 
+-(int)getBufferLength {
+    return 150;
+}
 
-#pragma mark ===Write Your Code Here===
-// alternatively you can subclass this class and override the process image function
+-(NSMutableArray*)buffer {
+    if(!_buffer)
+        _buffer = [[NSMutableArray alloc] init];
+    return _buffer;
+}
 
 
 #pragma mark Define Custom Functions Here
@@ -459,6 +469,81 @@ using namespace cv;
     } else {
         cv::circle(_image, mouthPos, circleSize, Scalar(255, 255, 255));
     }
+}
+
+-(int)moduleBFunction{
+    
+    // Print Average Pixel Value Text
+    cv::Mat frame_gray,image_copy;
+
+    char text[50];
+    Scalar avgPixelIntensity;
+
+    cvtColor(_image, image_copy, CV_BGRA2BGR); // get rid of alpha for processing
+    avgPixelIntensity = cv::mean( image_copy );
+    sprintf(text,"Avg. R: %.0f, G: %.0f, B: %.0f", avgPixelIntensity.val[0],avgPixelIntensity.val[1],avgPixelIntensity.val[2]);
+    cv::putText(_image, text, cv::Point(100, 100), FONT_HERSHEY_PLAIN, 0.75, Scalar::all(255), 1, 2);
+
+    // Print BPS
+    float red = avgPixelIntensity.val[0];
+    float green = avgPixelIntensity.val[1];
+    float blue = avgPixelIntensity.val[2];
+    
+    // First check if the finger is actually on the screen
+    if (red * red > (blue * blue + green * green))
+    {
+        
+        // Load into Buffer
+        [self.buffer addObject:[NSNumber numberWithDouble: avgPixelIntensity.val[0]]];
+        if ([self.buffer count] > self.getBufferLength + 30)
+        {
+            self.BPM = [self getHeartRate];
+            [self.buffer removeObjectsInRange:NSMakeRange(0, 30)];
+        }
+        
+        return self.BPM;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+-(int)getHeartRate {
+    
+    // Find max and min values over the buffer array
+    NSMutableArray *maxForWindows = [[NSMutableArray alloc] init];
+    NSMutableArray *minForWindows = [[NSMutableArray alloc] init];
+    
+    // Window size of 12 to decrease the variability in BPM calculation
+    int windowSize = 12;
+    for (int i = 0; i < self.buffer.count - windowSize; i++) {
+        NSNumber *max = self.buffer[i];
+        NSNumber *min = self.buffer[i];
+        for (int j = 1; j < windowSize; j++) {
+            if (max < self.buffer[i+j])
+                max = self.buffer[i+j];
+            if (min > self.buffer[i+j])
+                min = self.buffer[i+j];
+        }
+        [maxForWindows addObject:max];
+        [minForWindows addObject:min];
+    }
+    
+    // Take all instances of peaks and troughs, and then calculate BPM through EKG
+    NSMutableArray *peaks = [[NSMutableArray alloc] init];
+    NSMutableArray *troughs = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.buffer.count - windowSize; i++) {
+        if (self.buffer[i] == maxForWindows[i])
+            [peaks addObject:@(i)];
+        if (self.buffer[i] == minForWindows[i])
+            [troughs addObject:@(i)];
+    }
+    
+    float count = (peaks.count + troughs.count) / 2.0;
+    
+    // Multiply by frame rate
+    return count / (self.buffer.count / 30) * 30;
 }
 
 @end

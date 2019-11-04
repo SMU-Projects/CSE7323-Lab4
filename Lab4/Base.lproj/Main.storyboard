@@ -62,10 +62,25 @@
                     <view key="view" contentMode="scaleToFill" id="3y0-jC-CdS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Place Your Finger Over The Flashlight For 5 Seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56X-aq-vVB">
+                                <rect key="frame" x="-21" y="741.5" width="456" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="56X-aq-vVB" firstAttribute="centerX" secondItem="3y0-jC-CdS" secondAttribute="centerX" id="2vl-Ct-EKq"/>
+                            <constraint firstItem="mrH-vF-hC7" firstAttribute="bottom" secondItem="56X-aq-vVB" secondAttribute="bottom" constant="100" id="NWx-7w-Tzh"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="mrH-vF-hC7"/>
                     </view>
                     <navigationItem key="navigationItem" title="Module B" id="pql-Rm-Rfd"/>
+                    <connections>
+                        <outlet property="label" destination="56X-aq-vVB" id="wpJ-mf-Daa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZB8-id-Kp1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -129,10 +144,26 @@
                     <view key="view" contentMode="scaleToFill" id="dQb-fh-MrI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZr-A0-xyx">
+                                <rect key="frame" x="155" y="782" width="104" height="30"/>
+                                <state key="normal" title="Toggle Camera"/>
+                                <connections>
+                                    <action selector="buttonAction:" destination="tg0-ri-avg" eventType="touchUpInside" id="wCj-lQ-FPL"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="eCc-YB-eNv" firstAttribute="bottom" secondItem="aZr-A0-xyx" secondAttribute="bottom" constant="50" id="9gQ-lY-2lT"/>
+                            <constraint firstItem="aZr-A0-xyx" firstAttribute="centerX" secondItem="dQb-fh-MrI" secondAttribute="centerX" id="LHK-Q7-gbg"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="eCc-YB-eNv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Module A" id="Ds3-aW-Tmj"/>
+                    <connections>
+                        <outlet property="button" destination="aZr-A0-xyx" id="EFy-Pz-gSQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vhy-8R-O97" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
