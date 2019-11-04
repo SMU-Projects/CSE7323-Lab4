@@ -49,7 +49,7 @@ using namespace cv;
         case 2:
         {
             static uint counter = 0;
-            cvtColor(_image, image_copy, CV_BGRA2BGR);
+            cvtColor(_image, image_copy, CV_BGRA2RGB);
             for(int i=0;i<counter;i++){
                 for(int j=0;j<counter;j++){
                     uchar *pt = image_copy.ptr(i, j);
@@ -75,8 +75,8 @@ using namespace cv;
             
             cvtColor(_image, image_copy, CV_BGRA2BGR); // get rid of alpha for processing
             avgPixelIntensity = cv::mean( image_copy );
-            sprintf(text,"Avg. B: %.0f, G: %.0f, R: %.0f", avgPixelIntensity.val[0],avgPixelIntensity.val[1],avgPixelIntensity.val[2]);
-            cv::putText(_image, text, cv::Point(0, 10), FONT_HERSHEY_PLAIN, 0.75, Scalar::all(255), 1, 2);
+            sprintf(text,"Avg. R: %.0f, G: %.0f, B: %.0f", avgPixelIntensity.val[0],avgPixelIntensity.val[1],avgPixelIntensity.val[2]);
+            cv::putText(_image, text, cv::Point(100, 100), FONT_HERSHEY_PLAIN, 0.75, Scalar::all(255), 1, 2);
             break;
         }
         case 4:
@@ -420,7 +420,45 @@ using namespace cv;
     return retImage;
 }
 
-
-
+-(void)moduleAFunction:(CIFaceFeature*)face{
+    
+    vector<cv::Point> box;
+    
+    // Face Detection
+    cv::Point point1 = cv::Point(face.bounds.origin.y, face.bounds.origin.x);
+    cv::Point point2 = cv::Point(face.bounds.origin.y + face.bounds.size.width, face.bounds.origin.x + face.bounds.size.height);
+    box.push_back(point1);
+    box.push_back(point2);
+    cv::Rect boundingRect = cv::boundingRect(box);
+    cv::rectangle(_image, boundingRect, Scalar(255, 255, 255));
+    
+    float circleSize = face.bounds.size.height/10;
+    
+    // Left Eye Detection
+    cv::Point leftEyePos = cv::Point(face.leftEyePosition.y, face.leftEyePosition.x);
+    if (face.leftEyeClosed) {
+        cv::circle(_image, leftEyePos, circleSize, Scalar(255, 0, 0));
+    } else {
+        cv::circle(_image, leftEyePos, circleSize, Scalar(255, 255, 255));
+    }
+    
+    
+    // Right Eye Detection
+    cv::Point rightEyePos = cv::Point(face.rightEyePosition.y, face.rightEyePosition.x);
+    if (face.rightEyeClosed) {
+        cv::circle(_image, rightEyePos, circleSize, Scalar(255, 0, 0));
+    } else {
+        cv::circle(_image, rightEyePos, circleSize, Scalar(255, 255, 255));
+    }
+    
+    
+    // Mouth Detection
+    cv::Point mouthPos = cv::Point(face.mouthPosition.y, face.mouthPosition.x);
+    if (face.hasSmile) {
+        cv::circle(_image, mouthPos, circleSize, Scalar(255, 0, 0));
+    } else {
+        cv::circle(_image, mouthPos, circleSize, Scalar(255, 255, 255));
+    }
+}
 
 @end

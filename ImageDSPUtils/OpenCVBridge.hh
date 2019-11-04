@@ -36,4 +36,6 @@
 
 -(void)loadHaarCascadeWithFilename:(NSString*)filename;
 
+-(void)moduleAFunction:(CIFaceFeature*)face;
+
 @end

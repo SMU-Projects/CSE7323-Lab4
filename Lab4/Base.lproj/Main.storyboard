@@ -30,12 +30,21 @@
                                     <segue destination="gfr-qV-OjH" kind="show" id="fgR-wW-4nm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ext-na-sLh">
+                                <rect key="frame" x="182" y="348" width="50" height="30"/>
+                                <state key="normal" title="Default"/>
+                                <connections>
+                                    <segue destination="w1D-08-Tde" kind="show" id="Mx8-gt-K5w"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="suf-6o-4PU" firstAttribute="top" secondItem="smg-YW-Qxk" secondAttribute="bottom" constant="50" id="Aeh-1p-RlX"/>
                             <constraint firstItem="smg-YW-Qxk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="DdK-lv-17F"/>
+                            <constraint firstItem="ext-na-sLh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="J16-80-YBL"/>
                             <constraint firstItem="smg-YW-Qxk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="haW-Zx-Ksh"/>
+                            <constraint firstItem="ext-na-sLh" firstAttribute="top" secondItem="suf-6o-4PU" secondAttribute="bottom" constant="50" id="jkC-AU-cg3"/>
                             <constraint firstItem="suf-6o-4PU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vja-fw-QhO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -49,7 +58,7 @@
         <!--Module B-->
         <scene sceneID="BKn-OV-BsF">
             <objects>
-                <viewController id="gfr-qV-OjH" sceneMemberID="viewController">
+                <viewController id="gfr-qV-OjH" customClass="ModuleB" customModule="Lab4" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3y0-jC-CdS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,7 +69,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZB8-id-Kp1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2083" y="463"/>
+            <point key="canvasLocation" x="2380" y="116"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="91W-fc-7go">
@@ -80,6 +89,39 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="115.84821428571428"/>
         </scene>
+        <!--Default-->
+        <scene sceneID="Yrw-cV-4vh">
+            <objects>
+                <viewController id="w1D-08-Tde" customClass="Default" customModule="Lab4" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NmN-G7-yD4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="11" translatesAutoresizingMaskIntoConstraints="NO" id="7qT-5h-EQy">
+                                <rect key="frame" x="18" y="782" width="378" height="31"/>
+                                <connections>
+                                    <action selector="sliderAction:" destination="w1D-08-Tde" eventType="valueChanged" id="uG1-cd-HdD"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7qT-5h-EQy" firstAttribute="leading" secondItem="2BY-bO-6Fk" secondAttribute="leading" constant="20" id="3ti-m2-GSh"/>
+                            <constraint firstItem="2BY-bO-6Fk" firstAttribute="bottom" secondItem="7qT-5h-EQy" secondAttribute="bottom" constant="50" id="BD0-JI-mNR"/>
+                            <constraint firstItem="7qT-5h-EQy" firstAttribute="centerX" secondItem="NmN-G7-yD4" secondAttribute="centerX" id="Muc-7X-t2x"/>
+                            <constraint firstItem="2BY-bO-6Fk" firstAttribute="trailing" secondItem="7qT-5h-EQy" secondAttribute="trailing" constant="20" id="kD2-HQ-Yrd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2BY-bO-6Fk"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Default" id="gv1-YN-wkU"/>
+                    <connections>
+                        <outlet property="slider" destination="7qT-5h-EQy" id="Jx0-Yc-7Yi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kjz-9o-aRX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2379.7101449275365" y="849.77678571428567"/>
+        </scene>
         <!--Module A-->
         <scene sceneID="MEL-Js-w7Y">
             <objects>
@@ -94,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vhy-8R-O97" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2084" y="-333"/>
+            <point key="canvasLocation" x="2380" y="-595"/>
         </scene>
     </scenes>
 </document>

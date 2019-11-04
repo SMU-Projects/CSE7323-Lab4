@@ -17,6 +17,7 @@
 		B66BAE97236F4A0800C70B61 /* OpenCVBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = B66BAE91236F4A0800C70B61 /* OpenCVBridge.mm */; };
 		B66BAE99236F4A0800C70B61 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66BAE93236F4A0800C70B61 /* opencv2.framework */; };
 		B66BAE9A236F4A0800C70B61 /* VideoAnalgesic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66BAE96236F4A0800C70B61 /* VideoAnalgesic.swift */; };
+		B66BAE9E236F7ADE00C70B61 /* Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66BAE9D236F7ADE00C70B61 /* Default.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		B66BAE96236F4A0800C70B61 /* VideoAnalgesic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAnalgesic.swift; sourceTree = "<group>"; };
 		B66BAE9B236F4D5D00C70B61 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B66BAE9C236F4FA700C70B61 /* OpenCVBridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVBridgeHeader.h; sourceTree = "<group>"; };
+		B66BAE9D236F7ADE00C70B61 /* Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				B66BAE54236F448C00C70B61 /* ViewController.swift */,
 				B66BAE64236F487E00C70B61 /* ModuleA.swift */,
 				B66BAE66236F488E00C70B61 /* ModuleB.swift */,
+				B66BAE9D236F7ADE00C70B61 /* Default.swift */,
 				B66BAE5E236F448D00C70B61 /* Info.plist */,
 				B66BAE59236F448D00C70B61 /* Assets.xcassets */,
 			);
@@ -167,6 +170,7 @@
 			files = (
 				B66BAE67236F488E00C70B61 /* ModuleB.swift in Sources */,
 				B66BAE55236F448C00C70B61 /* ViewController.swift in Sources */,
+				B66BAE9E236F7ADE00C70B61 /* Default.swift in Sources */,
 				B66BAE65236F487E00C70B61 /* ModuleA.swift in Sources */,
 				B66BAE9A236F4A0800C70B61 /* VideoAnalgesic.swift in Sources */,
 				B66BAE51236F448C00C70B61 /* AppDelegate.swift in Sources */,

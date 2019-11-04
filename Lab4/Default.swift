@@ -9,7 +9,10 @@
 import UIKit
 import AVFoundation
 
-class ModuleB: UIViewController   {
+class Default: UIViewController   {
+    
+    //MARK: UI Properties
+    @IBOutlet weak var slider: UISlider!
     
     //MARK: Class Properties
     var filters : [CIFilter]! = nil
@@ -29,13 +32,12 @@ class ModuleB: UIViewController   {
         self.videoManager = VideoAnalgesic.sharedInstance
         self.videoManager.setCameraPosition(position: AVCaptureDevice.Position.front)
         
-        let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyHigh, CIDetectorTracking:true] as [String : Any]
+        let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyLow]
         
         // setup a face detector in swift
         self.detector = CIDetector(ofType: CIDetectorTypeFace,
                                   context: self.videoManager.getCIContext(), // perform on the GPU if possible
                                   options: optsDetector)
-        
         
         self.bridge.setTransforms(self.videoManager.transform)
         self.videoManager.setProcessingBlock(newProcessBlock: self.processImage)
@@ -47,27 +49,30 @@ class ModuleB: UIViewController   {
         }
         
         self.bridge.processType = 1
-    
+     
     }
     
     //MARK: Process image output
     func processImage(inputImage:CIImage) -> CIImage{
         
         // detect faces
-        let faces = getFaces(img: inputImage)
+        let f = getFaces(img: inputImage)
+        NSLog("There are \(f.count) faces")
         
         // if no faces, just return original image
-        if faces.count == 0 { return inputImage }
+        if f.count == 0 { return inputImage }
         
         var retImage = inputImage
         
-        for face in faces {
-            //HINT: you can also send in the bounds of the face to ONLY process the face in OpenCV
-            // or any bounds to only process a certain bounding region in OpenCV
-            self.bridge.setImage(retImage,  withBounds: retImage.extent, andContext: self.videoManager.getCIContext())
-            self.bridge.moduleAFunction(face)
-            retImage = self.bridge.getImage()
-        }
+        // use this code if you are using OpenCV and want to overwrite the displayed image via OpenCv
+        // this is a BLOCKING CALL
+        self.bridge.setImage(retImage, withBounds: retImage.extent, andContext: self.videoManager.getCIContext())
+        self.bridge.processImage()
+        retImage = self.bridge.getImage()
+        
+        //HINT: you can also send in the bounds of the face to ONLY process the face in OpenCV
+        // or any bounds to only process a certain bounding region in OpenCV
+        
         return retImage
     }
     
@@ -105,14 +110,20 @@ class ModuleB: UIViewController   {
     
     func getFaces(img:CIImage) -> [CIFaceFeature]{
         // this ungodly mess makes sure the image is the correct orientation
-//        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation]
-        
-        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation, CIDetectorSmile:true, CIDetectorEyeBlink:true] as [String : Any]
-        
+        let optsFace = [CIDetectorImageOrientation:self.videoManager.ciOrientation]
         // get Face Features
         return self.detector.features(in: img, options: optsFace) as! [CIFaceFeature]
         
     }
+    
+    @IBAction func sliderAction(_ sender: Any) {
+        var sliderValue = 0
+        sliderValue = lroundf(self.slider.value)
+        self.slider.value = Float(sliderValue)
+        self.bridge.processType = sliderValue
+        NSLog("\(sliderValue)")
+    }
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
